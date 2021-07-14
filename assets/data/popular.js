@@ -2,19 +2,22 @@ export const popular = [
     {
         id: 1,
         image: require('../images/microfonos.jpg'),
-        tittle: 'Micrófono Inalámbrico',
+        title: 'Micrófono Inalámbrico',
+        weight: '250gr',
         rating: '4.0'
     },
     {
         id: 2,
         image: require('../images/kit-mascota.png'),
-        tittle: 'Kit Spa Mascota',
+        title: 'Kit Spa Mascota',
+        weight: '500gr',
         rating: '5.0'
     },
     {
         id: 3,
         image: require('../images/combo-tonificador.jpg'),
-        tittle: 'Combo Tonificador',
+        title: 'Combo Tonificador',
+        weight: '3kg',
         rating: '4.0'
     },
 ]

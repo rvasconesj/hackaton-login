@@ -1,18 +1,18 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
 import React from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Image, FlatList, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { colors } from './assets/colors';
-import { categories } from './assets/data/categories'; 
-import { popular } from './assets/data/popular';
-
+import {colors} from '../../../assets/colors/index';
+import {categories} from '../../../assets/data/categories';
+import {popular} from '../../../assets/data/popular';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -175,110 +175,44 @@ const styles = StyleSheet.create({
    },
 });
 
-
-const App = () => {
-
-  const renderCategoryItem = ({ item }) => (
-    <View style={[
-      styles.categoryItemWrapper, 
-      {
-      backgroundColor: item.selected ? colors.secondary : colors.white,
-        marginLeft: item.id === 1 ? 20 : 0,
-      },
-    ]}>
-      <Image style={styles.categoryItemImage} source={item.image} />
-      <Text style={styles.categoryItemTitle}>{item.tittle}</Text>
-      <View 
-      style={[
-        styles.categorySelectWrapper, 
-        {
-        backgroundColor: item.selected ? colors.white : colors.secondary, 
-      }
-      ]}>
-      <Icon 
-        name="heart" 
-        size={15} 
-        color={item.selected ? colors.secondary : colors.white} 
-        style={styles.categorySelectIcon}
-        />
-      </View>
-    </View>
-  );
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-      <SafeAreaView>
-        <View style={styles.headerWrapper}>
-          <Image 
-          style={styles.profileImage} 
-          source={require('./assets/images/profile01.jpg')} 
-          />
-          <Icon name="cloud" size={30} color={colors.textDatk} />
-        </View>
-      </SafeAreaView>
-      <View style={styles.tittleWrapper}>
-        <Text style={styles.subtittle}>Beauty</Text>
-        <Text style={styles.tittle}>Phuyu Store</Text>
-      </View>
-      <View style={styles.searchWrapper}>
-        <Icon name="search" size={25} color={colors.primary} />
-        <View style={styles.search}>
-          <Text style={styles.searchText}>Search</Text>
-        </View>
-      </View>
-      <View style={styles.categoriesWrapper}>
-          <Text style={styles.categoriesTitle}> Categories </Text>
-          <View style={styles.categoriesListWrapper}>
-            <FlatList 
-            data={categories} 
-            renderItem={renderCategoryItem} 
-            keyExtractor={item => item.id}
-            horizontal={true} 
-            />
-          </View>
-        </View>
-        <View style={styles.popularWrapper}>
-          <Text style={styles.popularTitle}>Popular</Text>
-          {popular.map((item, index) => (
-            <View 
-            style={[styles.popularCardWrapper, 
-              {
-              marginTop: item.id === 1 ? 10 : 20,
-            },
-            ]}>
+const Product = ({navigation, route}) => {
+    const {title, weight, rating, image} = route.params;
+    return (
+      <View style={styles.container}>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <View style={styles.popularWrapper}>
+            <View style={styles.popularCardWrapper}>
               <View>
                 <View>
                   <View style={styles.popularTopWrapper}>
-                  <Icon name="star" size={20} color={colors.stars} />
-                  <Text style={styles.popularTopText}> Top de la Semana </Text>
+                    <Icon name="star" size={12} color={colors.primary} />
+                    <Text style={styles.popularTopText}>top de la semana</Text>
                   </View>
                   <View style={styles.popularTitleWrapper}>
-                    <Text style={styles.popularTitlesTitle}>Producto: {item.title}</Text>
+                    <Text style={styles.popularTitlesTitle}>{title}</Text>
                     <Text style={styles.popularTitlesWeight}>
-                      Peso: {item.weight}
-                      </Text>
+                      Weight: {weight}
+                    </Text>
                   </View>
                 </View>
-              <View style={styles.popularCardBottom}>
-                <View style={styles.addProductBottom}>
-                  <Icon name="plus" size={20} color={colors.textDatk} />
+                <View style={styles.popularCardBottom}>
+                  <View style={styles.addPizzaButton}>
+                    <Icon name="plus" size={12} color={colors.textDatk} />
+                  </View>
+                  <View style={styles.ratingWrapper}>
+                    <Icon name="heart" size={12} color={colors.textDatk} />
+                    <Text style={styles.rating}>{rating}</Text>
+                  </View>
                 </View>
-                <View style={styles.ratingWrapper}>
-                  <Icon name="star" size={15} color={colors.stars} />
-                  <Text style={styles.rating}>{item.rating}</Text>
-                </View>
+              </View>
+              <View style={styles.popularCardRight}>
+                <Image source={image} style={styles.popularCardImage} />
               </View>
             </View>
-            <View style={styles.popularCardRight}>
-            <Image source={item.image} style={styles.popularCardImage}/> 
-              </View>
-          </View>  
-          ))}
-        </View>
+          </View>
         </ScrollView>
-    </View>
-  );
-};
-
-
-export default App;
+      </View>
+    );
+  };
+  
+  export default Product;
